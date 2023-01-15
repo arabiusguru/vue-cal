@@ -352,15 +352,22 @@ export default {
         // Means that when vuecal.view.events changes all the cells will be looking up new value. :/
         // Also clone array to prevent modifying original.
         events = this.view.events.slice(0)
+        console.log('vue cal start',events)
 
         if (this.view.id === 'month') {
           events.push(...this.view.outOfScopeEvents)
         }
+          console.log('vue cal after month checks',events)
 
         // Only keep events in cell time range.
         events = events.filter(e => this.utils.event.eventInRange(e, cellStart, cellEnd))
 
+        console.log('vue cal after Only keep events in cell time range',events)
+
         if (this.options.showAllDayEvents && this.view.id !== 'month') events = events.filter(e => !!e.allDay === this.allDay)
+
+
+         console.log('vue cal after all days filter',events)
 
         // From events in view, filter the ones that are out of `time-from`-`time-to` range in this cell.
         if (this.options.time && this.isWeekOrDayView && !this.allDay) {
@@ -373,6 +380,8 @@ export default {
             const recurrMultDayInRange = false // e.daysCount > 1 && e.repeat && recurringEventInRange(e, cellStart, cellEnd)
             return (e.allDay || singleDayInRange || multipleDayInRange || recurrMultDayInRange)
           })
+
+          console.log('vue cal after From events in view',events)
         }
 
         // Position events with time in the timeline when there is a timeline and not in allDay slot.
