@@ -1,6 +1,6 @@
 /**
   * vue-cal v4.8.1
-  * (c) 2022 Antoni Andre <antoniandre.web@gmail.com>
+  * (c) 2023 Antoni Andre <antoniandre.web@gmail.com>
   * @license MIT
   */
 const a = ["Ponedeljak", "Utorak", "Sreda", "\u010Cetvrtak", "Petak", "Subota", "Nedelja"], e = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"], t = "Godine", r = "Godina", s = "Mesec", d = "Sedmica", i = "Dan", n = "Danas", o = "Nema doga\u0111aja", l = "Celi dan", m = "Obri\u0161i", y = "Kreiraj doga\u0111aj", k = "dddd D MMMM YYYY", v = { weekDays: a, months: e, years: t, year: r, month: s, week: d, day: "Dan", today: n, noEvent: o, allDay: l, deleteEvent: m, createEvent: y, dateFormat: k };

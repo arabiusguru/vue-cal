@@ -3,7 +3,7 @@ var V = (t, e, l) => e in t ? S(t, e, { enumerable: !0, configurable: !0, writab
 var T = (t, e, l) => (V(t, typeof e != "symbol" ? e + "" : e, l), l);
 /**
   * vue-cal v4.8.1
-  * (c) 2022 Antoni Andre <antoniandre.web@gmail.com>
+  * (c) 2023 Antoni Andre <antoniandre.web@gmail.com>
   * @license MIT
   */
 let o = null, c = null, v = { id: null, date: null }, _ = !1, m = !0, u = { el: null, cell: null, timeout: null };

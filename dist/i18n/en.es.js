@@ -1,6 +1,6 @@
 /**
   * vue-cal v4.8.1
-  * (c) 2022 Antoni Andre <antoniandre.web@gmail.com>
+  * (c) 2023 Antoni Andre <antoniandre.web@gmail.com>
   * @license MIT
   */
 const e = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], a = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], t = "Years", y = "Year", s = "Month", r = "Week", D = "Day", d = "Today", n = "No Event", o = "All day", l = "Delete", u = "Create an event", m = "dddd MMMM D{S}, YYYY", v = { weekDays: e, months: a, years: t, year: y, month: s, week: r, day: "Day", today: d, noEvent: n, allDay: o, deleteEvent: l, createEvent: u, dateFormat: m };

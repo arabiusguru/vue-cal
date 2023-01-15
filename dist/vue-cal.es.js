@@ -4,7 +4,7 @@ var H = (e, t, i) => (re(e, typeof t != "symbol" ? t + "" : t, i), i);
 import { openBlock as h, createElementBlock as c, Fragment as T, renderList as S, normalizeClass as b, normalizeStyle as $, createVNode as U, Transition as R, withCtx as g, createElementVNode as k, renderSlot as w, toDisplayString as f, createCommentVNode as v, createTextVNode as M, resolveComponent as j, createBlock as W, resolveDynamicComponent as de, createSlots as X, withKeys as Z, withModifiers as L, TransitionGroup as ue, normalizeProps as J, mergeProps as Q } from "vue";
 /**
   * vue-cal v4.8.1
-  * (c) 2022 Antoni Andre <antoniandre.web@gmail.com>
+  * (c) 2023 Antoni Andre <antoniandre.web@gmail.com>
   * @license MIT
   */
 let N, ee, te, O, I = {}, F = {};
@@ -30,48 +30,48 @@ class he {
   }
 }
 const q = 1440;
-let D, y, K;
+let y, D, K;
 class ce {
   constructor(t, i) {
     H(this, "_vuecal", null);
     H(this, "eventDefaults", { _eid: null, start: "", startTimeMinutes: 0, end: "", endTimeMinutes: 0, title: "", content: "", background: !1, allDay: !1, segments: null, repeat: null, daysCount: 1, deletable: !0, deleting: !1, titleEditable: !0, resizable: !0, resizing: !1, draggable: !0, dragging: !1, draggingStatic: !1, focused: !1, class: "" });
-    this._vuecal = t, D = i;
+    this._vuecal = t, y = i;
   }
   createAnEvent(t, i, n) {
-    if (typeof t == "string" && (t = D.stringToDate(t)), !(t instanceof Date))
+    if (typeof t == "string" && (t = y.stringToDate(t)), !(t instanceof Date))
       return !1;
-    const l = D.dateToMinutes(t), s = l + (i = 1 * i || 120), o = D.addMinutes(new Date(t), i);
-    n.end && (typeof n.end == "string" && (n.end = D.stringToDate(n.end)), n.endTimeMinutes = D.dateToMinutes(n.end));
+    const l = y.dateToMinutes(t), s = l + (i = 1 * i || 120), o = y.addMinutes(new Date(t), i);
+    n.end && (typeof n.end == "string" && (n.end = y.stringToDate(n.end)), n.endTimeMinutes = y.dateToMinutes(n.end));
     const a = { ...this.eventDefaults, _eid: `${this._vuecal._.uid}_${this._vuecal.eventIdIncrement++}`, start: t, startTimeMinutes: l, end: o, endTimeMinutes: s, segments: null, ...n };
-    return typeof this._vuecal.onEventCreate != "function" || this._vuecal.onEventCreate(a, () => this.deleteAnEvent(a)) ? (a.startDateF !== a.endDateF && (a.daysCount = D.countDays(a.start, a.end)), this._vuecal.mutableEvents.push(a), this._vuecal.addEventsToView([a]), this._vuecal.emitWithEvent("event-create", a), this._vuecal.$emit("event-change", { event: this._vuecal.cleanupEvent(a), originalEvent: null }), a) : void 0;
+    return typeof this._vuecal.onEventCreate != "function" || this._vuecal.onEventCreate(a, () => this.deleteAnEvent(a)) ? (a.startDateF !== a.endDateF && (a.daysCount = y.countDays(a.start, a.end)), this._vuecal.mutableEvents.push(a), this._vuecal.addEventsToView([a]), this._vuecal.emitWithEvent("event-create", a), this._vuecal.$emit("event-change", { event: this._vuecal.cleanupEvent(a), originalEvent: null }), a) : void 0;
   }
   addEventSegment(t) {
-    t.segments || (t.segments = {}, t.segments[D.formatDateLite(t.start)] = { start: t.start, startTimeMinutes: t.startTimeMinutes, endTimeMinutes: q, isFirstDay: !0, isLastDay: !1 });
-    const i = t.segments[D.formatDateLite(t.end)];
+    t.segments || (t.segments = {}, t.segments[y.formatDateLite(t.start)] = { start: t.start, startTimeMinutes: t.startTimeMinutes, endTimeMinutes: q, isFirstDay: !0, isLastDay: !1 });
+    const i = t.segments[y.formatDateLite(t.end)];
     i && (i.isLastDay = !1, i.endTimeMinutes = q);
-    const n = D.addDays(t.end, 1), l = D.formatDateLite(n);
-    return n.setHours(0, 0, 0, 0), t.segments[l] = { start: n, startTimeMinutes: 0, endTimeMinutes: t.endTimeMinutes, isFirstDay: !1, isLastDay: !0 }, t.end = D.addMinutes(n, t.endTimeMinutes), t.daysCount = Object.keys(t.segments).length, l;
+    const n = y.addDays(t.end, 1), l = y.formatDateLite(n);
+    return n.setHours(0, 0, 0, 0), t.segments[l] = { start: n, startTimeMinutes: 0, endTimeMinutes: t.endTimeMinutes, isFirstDay: !1, isLastDay: !0 }, t.end = y.addMinutes(n, t.endTimeMinutes), t.daysCount = Object.keys(t.segments).length, l;
   }
   removeEventSegment(t) {
     let i = Object.keys(t.segments).length;
     if (i <= 1)
-      return D.formatDateLite(t.end);
-    delete t.segments[D.formatDateLite(t.end)], i--;
-    const n = D.subtractDays(t.end, 1), l = D.formatDateLite(n), s = t.segments[l];
+      return y.formatDateLite(t.end);
+    delete t.segments[y.formatDateLite(t.end)], i--;
+    const n = y.subtractDays(t.end, 1), l = y.formatDateLite(n), s = t.segments[l];
     return i ? s && (s.isLastDay = !0, s.endTimeMinutes = t.endTimeMinutes) : t.segments = null, t.daysCount = i || 1, t.end = n, l;
   }
   createEventSegments(t, i, n) {
     const l = i.getTime(), s = n.getTime();
     let o, a, d, r = t.start.getTime(), u = t.end.getTime(), m = !1;
-    for (t.end.getHours() || t.end.getMinutes() || (u -= 1e3), t.segments = {}, t.repeat ? (o = l, a = Math.min(s, t.repeat.until ? D.stringToDate(t.repeat.until).getTime() : s)) : (o = Math.max(l, r), a = Math.min(s, u)); o <= a; ) {
+    for (t.end.getHours() || t.end.getMinutes() || (u -= 1e3), t.segments = {}, t.repeat ? (o = l, a = Math.min(s, t.repeat.until ? y.stringToDate(t.repeat.until).getTime() : s)) : (o = Math.max(l, r), a = Math.min(s, u)); o <= a; ) {
       let p = !1;
-      const E = D.addDays(new Date(o), 1).setHours(0, 0, 0, 0);
+      const E = y.addDays(new Date(o), 1).setHours(0, 0, 0, 0);
       let _, x, V, C;
       if (t.repeat) {
-        const Y = new Date(o), A = D.formatDateLite(Y);
-        (m || t.occurrences && t.occurrences[A]) && (m || (r = t.occurrences[A].start, d = new Date(r).setHours(0, 0, 0, 0), u = t.occurrences[A].end), m = !0, p = !0), _ = o === d, x = A === D.formatDateLite(new Date(u)), V = new Date(_ ? r : o), C = D.formatDateLite(V), x && (m = !1);
+        const Y = new Date(o), A = y.formatDateLite(Y);
+        (m || t.occurrences && t.occurrences[A]) && (m || (r = t.occurrences[A].start, d = new Date(r).setHours(0, 0, 0, 0), u = t.occurrences[A].end), m = !0, p = !0), _ = o === d, x = A === y.formatDateLite(new Date(u)), V = new Date(_ ? r : o), C = y.formatDateLite(V), x && (m = !1);
       } else
-        p = !0, _ = o === r, x = a === u && E > a, V = _ ? t.start : new Date(o), C = D.formatDateLite(_ ? t.start : V);
+        p = !0, _ = o === r, x = a === u && E > a, V = _ ? t.start : new Date(o), C = y.formatDateLite(_ ? t.start : V);
       p && (t.segments[C] = { start: V, startTimeMinutes: _ ? t.startTimeMinutes : 0, endTimeMinutes: x ? t.endTimeMinutes : q, isFirstDay: _, isLastDay: x }), o = E;
     }
     return t;
@@ -80,23 +80,23 @@ class ce {
     this._vuecal.emitWithEvent("event-delete", t), this._vuecal.mutableEvents = this._vuecal.mutableEvents.filter((i) => i._eid !== t._eid), this._vuecal.view.events = this._vuecal.view.events.filter((i) => i._eid !== t._eid);
   }
   checkCellOverlappingEvents(t, i) {
-    K = t.slice(0), y = {}, t.forEach((l) => {
-      K.shift(), y[l._eid] || (y[l._eid] = { overlaps: [], start: l.start, position: 0 }), y[l._eid].position = 0, K.forEach((s) => {
-        y[s._eid] || (y[s._eid] = { overlaps: [], start: s.start, position: 0 });
-        const o = this.eventInRange(s, l.start, l.end), a = i.overlapsPerTimeStep ? D.datesInSameTimeStep(l.start, s.start, i.timeStep) : 1;
+    K = t.slice(0), D = {}, t.forEach((l) => {
+      K.shift(), D[l._eid] || (D[l._eid] = { overlaps: [], start: l.start, position: 0 }), D[l._eid].position = 0, K.forEach((s) => {
+        D[s._eid] || (D[s._eid] = { overlaps: [], start: s.start, position: 0 });
+        const o = this.eventInRange(s, l.start, l.end), a = i.overlapsPerTimeStep ? y.datesInSameTimeStep(l.start, s.start, i.timeStep) : 1;
         if (l.background || l.allDay || s.background || s.allDay || !o || !a) {
           let d, r;
-          (d = (y[l._eid] || { overlaps: [] }).overlaps.indexOf(s._eid)) > -1 && y[l._eid].overlaps.splice(d, 1), (r = (y[s._eid] || { overlaps: [] }).overlaps.indexOf(l._eid)) > -1 && y[s._eid].overlaps.splice(r, 1), y[s._eid].position--;
+          (d = (D[l._eid] || { overlaps: [] }).overlaps.indexOf(s._eid)) > -1 && D[l._eid].overlaps.splice(d, 1), (r = (D[s._eid] || { overlaps: [] }).overlaps.indexOf(l._eid)) > -1 && D[s._eid].overlaps.splice(r, 1), D[s._eid].position--;
         } else
-          y[l._eid].overlaps.push(s._eid), y[l._eid].overlaps = [...new Set(y[l._eid].overlaps)], y[s._eid].overlaps.push(l._eid), y[s._eid].overlaps = [...new Set(y[s._eid].overlaps)], y[s._eid].position++;
+          D[l._eid].overlaps.push(s._eid), D[l._eid].overlaps = [...new Set(D[l._eid].overlaps)], D[s._eid].overlaps.push(l._eid), D[s._eid].overlaps = [...new Set(D[s._eid].overlaps)], D[s._eid].position++;
       });
     });
     let n = 0;
-    for (const l in y) {
-      const s = y[l], o = s.overlaps.map((a) => ({ id: a, start: y[a].start }));
-      o.push({ id: l, start: s.start }), o.sort((a, d) => a.start < d.start ? -1 : a.start > d.start ? 1 : a.id > d.id ? -1 : 1), s.position = o.findIndex((a) => a.id === l), n = Math.max(this.getOverlapsStreak(s, y), n);
+    for (const l in D) {
+      const s = D[l], o = s.overlaps.map((a) => ({ id: a, start: D[a].start }));
+      o.push({ id: l, start: s.start }), o.sort((a, d) => a.start < d.start ? -1 : a.start > d.start ? 1 : a.id > d.id ? -1 : 1), s.position = o.findIndex((a) => a.id === l), n = Math.max(this.getOverlapsStreak(s, D), n);
     }
-    return [y, n];
+    return [D, n];
   }
   getOverlapsStreak(t, i = {}) {
     let n = t.overlaps.length + 1, l = [];
@@ -115,7 +115,7 @@ class ce {
     return l < n.getTime() && s > i.getTime();
   }
 }
-const ve = { class: "vuecal__flex vuecal__weekdays-headings" }, me = ["onClick"], pe = { class: "vuecal__flex weekday-label", grow: "" }, we = { class: "full" }, De = { class: "small" }, ye = { class: "xsmall" }, ge = { key: 0 }, fe = { key: 0, class: "vuecal__flex vuecal__split-days-headers", grow: "" }, B = (e, t) => {
+const ve = { class: "vuecal__flex vuecal__weekdays-headings" }, me = ["onClick"], pe = { class: "vuecal__flex weekday-label", grow: "" }, we = { class: "full" }, ye = { class: "small" }, De = { class: "xsmall" }, ge = { key: 0 }, fe = { key: 0, class: "vuecal__flex vuecal__split-days-headers", grow: "" }, B = (e, t) => {
   const i = e.__vccOpts || e;
   for (const [n, l] of t)
     i[n] = l;
@@ -138,7 +138,7 @@ const ve = { class: "vuecal__flex vuecal__weekdays-headings" }, me = ["onClick"]
 }, cellHeadingsClickable() {
   return this.view.id === "week" && (this.vuecal.clickToNavigate || this.vuecal.dblclickToNavigate);
 } } }, [["render", function(e, t, i, n, l, s) {
-  return h(), c("div", ve, [(h(!0), c(T, null, S(s.headings, (o, a) => (h(), c(T, { key: a }, [o.hide ? v("", !0) : (h(), c("div", { key: 0, class: b(["vuecal__flex vuecal__heading", { today: o.today, clickable: s.cellHeadingsClickable }]), style: $(s.weekdayCellStyles), onClick: (d) => s.view.id === "week" && s.selectCell(o.date, d), onDblclick: t[0] || (t[0] = (d) => s.view.id === "week" && s.vuecal.dblclickToNavigate && i.switchToNarrowerView()) }, [U(R, { name: `slide-fade--${i.transitionDirection}`, appear: s.vuecal.transitions }, { default: g(() => [(h(), c("div", { class: "vuecal__flex", column: "", key: !!s.vuecal.transitions && `${a}-${o.dayOfMonth}` }, [k("div", pe, [w(e.$slots, "weekday-heading", { heading: s.cleanupHeading(o), view: s.view }, () => [k("span", we, f(o.full), 1), k("span", De, f(o.small), 1), k("span", ye, f(o.xsmall), 1), o.dayOfMonth ? (h(), c("span", ge, "\xA0" + f(o.dayOfMonth), 1)) : v("", !0)])]), s.vuecal.hasSplits && s.vuecal.stickySplitLabels ? (h(), c("div", fe, [(h(!0), c(T, null, S(s.vuecal.daySplits, (d, r) => (h(), c("div", { class: b(["day-split-header", d.class || !1]), key: r }, [w(e.$slots, "split-label", { split: d, view: s.view }, () => [M(f(d.label), 1)])], 2))), 128))])) : v("", !0)]))]), _: 2 }, 1032, ["name", "appear"])], 46, me))], 64))), 128))]);
+  return h(), c("div", ve, [(h(!0), c(T, null, S(s.headings, (o, a) => (h(), c(T, { key: a }, [o.hide ? v("", !0) : (h(), c("div", { key: 0, class: b(["vuecal__flex vuecal__heading", { today: o.today, clickable: s.cellHeadingsClickable }]), style: $(s.weekdayCellStyles), onClick: (d) => s.view.id === "week" && s.selectCell(o.date, d), onDblclick: t[0] || (t[0] = (d) => s.view.id === "week" && s.vuecal.dblclickToNavigate && i.switchToNarrowerView()) }, [U(R, { name: `slide-fade--${i.transitionDirection}`, appear: s.vuecal.transitions }, { default: g(() => [(h(), c("div", { class: "vuecal__flex", column: "", key: !!s.vuecal.transitions && `${a}-${o.dayOfMonth}` }, [k("div", pe, [w(e.$slots, "weekday-heading", { heading: s.cleanupHeading(o), view: s.view }, () => [k("span", we, f(o.full), 1), k("span", ye, f(o.small), 1), k("span", De, f(o.xsmall), 1), o.dayOfMonth ? (h(), c("span", ge, "\xA0" + f(o.dayOfMonth), 1)) : v("", !0)])]), s.vuecal.hasSplits && s.vuecal.stickySplitLabels ? (h(), c("div", fe, [(h(!0), c(T, null, S(s.vuecal.daySplits, (d, r) => (h(), c("div", { class: b(["day-split-header", d.class || !1]), key: r }, [w(e.$slots, "split-label", { split: d, view: s.view }, () => [M(f(d.label), 1)])], 2))), 128))])) : v("", !0)]))]), _: 2 }, 1032, ["name", "appear"])], 46, me))], 64))), 128))]);
 }]]), _e = { class: "vuecal__header" }, ke = { key: 0, class: "vuecal__flex vuecal__menu", role: "tablist", "aria-label": "Calendar views navigation" }, be = ["onDragenter", "onDragleave", "onClick", "aria-label"], Te = { key: 1, class: "vuecal__title-bar" }, Ee = ["aria-label"], Ce = { class: "vuecal__flex vuecal__title", grow: "" }, Me = ["aria-label"], Se = { key: 0, class: "vuecal__flex vuecal__split-days-headers" }, Oe = B({ inject: ["vuecal", "previous", "next", "switchView", "updateSelectedDate", "modules", "view"], components: { WeekdaysHeadings: ne }, props: { options: { type: Object, default: () => ({}) }, editEvents: { type: Object, required: !0 }, hasSplits: { type: [Boolean, Number], default: !1 }, daySplits: { type: Array, default: () => [] }, viewProps: { type: Object, default: () => ({}) }, weekDays: { type: Array, default: () => [] }, switchToNarrowerView: { type: Function, default: () => {
 } } }, data: () => ({ highlightedControl: null }), methods: { goToToday() {
   this.updateSelectedDate(new Date(new Date().setHours(0, 0, 0, 0)));
@@ -333,12 +333,12 @@ const ve = { class: "vuecal__flex vuecal__weekdays-headings" }, me = ["onClick"]
   const { startDate: e, endDate: t } = this.data;
   let i = [];
   if (!["years", "year"].includes(this.view.id) || this.options.eventsCountOnYearView) {
-    if (i = this.view.events.slice(0), this.view.id === "month" && i.push(...this.view.outOfScopeEvents), i = i.filter((n) => this.utils.event.eventInRange(n, e, t)), this.options.showAllDayEvents && this.view.id !== "month" && (i = i.filter((n) => !!n.allDay === this.allDay)), this.options.time && this.isWeekOrDayView && !this.allDay) {
+    if (i = this.view.events.slice(0), console.log("vue cal start", i), this.view.id === "month" && i.push(...this.view.outOfScopeEvents), console.log("vue cal after month checks", i), i = i.filter((n) => this.utils.event.eventInRange(n, e, t)), console.log("vue cal after Only keep events in cell time range", i), this.options.showAllDayEvents && this.view.id !== "month" && (i = i.filter((n) => !!n.allDay === this.allDay)), console.log("vue cal after all days filter", i), this.options.time && this.isWeekOrDayView && !this.allDay) {
       const { timeFrom: n, timeTo: l } = this.options;
       i = i.filter((s) => {
         const o = s.daysCount > 1 && s.segments[this.data.formattedDate] || {}, a = s.daysCount === 1 && s.startTimeMinutes < l && s.endTimeMinutes > n, d = s.daysCount > 1 && o.startTimeMinutes < l && o.endTimeMinutes > n;
         return s.allDay || a || d || !1;
-      });
+      }), console.log("vue cal after From events in view", i);
     }
     !this.options.time || !this.isWeekOrDayView || this.options.showAllDayEvents && this.allDay || i.sort((n, l) => n.start < l.start ? -1 : 1), this.cellSplits.length || this.$nextTick(this.checkCellOverlappingEvents);
   }
@@ -958,10 +958,10 @@ A valid view must be one of: ${ie.join(", ")}.`), e = "week"), this.enabledViews
   this.updateSelectedDate(e);
 }, activeView(e) {
   this.switchView(e);
-} } }, yt = B(pt, [["render", function(e, t, i, n, l, s) {
+} } }, Dt = B(pt, [["render", function(e, t, i, n, l, s) {
   const o = j("vuecal-header"), a = j("all-day-bar"), d = j("weekdays-headings"), r = j("vuecal-cell");
   return h(), c("div", { class: b(["vuecal__flex vuecal", s.cssClasses]), column: "", ref: "vuecal", lang: i.locale }, [U(o, { options: e.$props, "edit-events": s.editEvents, "view-props": { views: s.views, weekDaysInHeader: s.weekDaysInHeader }, "week-days": s.weekDays, "has-splits": s.hasSplits, "day-splits": s.daySplits, "switch-to-narrower-view": s.switchToNarrowerView }, X({ "arrow-prev": g(() => [w(e.$slots, "arrow-prev", {}, () => [M("\xA0"), Be, M("\xA0")])]), "arrow-next": g(() => [w(e.$slots, "arrow-next", {}, () => [M("\xA0"), Ne, M("\xA0")])]), "today-button": g(() => [w(e.$slots, "today-button", {}, () => [k("span", Ie, f(l.texts.today), 1)])]), title: g(() => [w(e.$slots, "title", { title: s.viewTitle, view: l.view }, () => [M(f(s.viewTitle), 1)])]), _: 2 }, [e.$slots["weekday-heading"] ? { name: "weekday-heading", fn: g(({ heading: u, view: m }) => [w(e.$slots, "weekday-heading", { heading: u, view: m })]), key: "0" } : void 0, e.$slots["split-label"] ? { name: "split-label", fn: g(({ split: u }) => [w(e.$slots, "split-label", { split: u, view: l.view.id })]), key: "1" } : void 0]), 1032, ["options", "edit-events", "view-props", "week-days", "has-splits", "day-splits", "switch-to-narrower-view"]), i.hideBody ? v("", !0) : (h(), c("div", ze, [U(R, { name: `slide-fade--${l.transitionDirection}`, appear: i.transitions }, { default: g(() => [(h(), c("div", { class: "vuecal__flex", style: { "min-width": "100%" }, key: !!i.transitions && l.view.id, column: "" }, [i.showAllDayEvents && s.hasTimeColumn && (!s.cellOrSplitMinWidth || s.isDayView && !i.minSplitWidth) ? (h(), W(a, J(Q({ key: 0 }, s.allDayBar)), { event: g(({ event: u, view: m }) => [w(e.$slots, "event", { view: m, event: u }, () => [s.editEvents.title && u.titleEditable ? (h(), c("div", { key: 0, class: "vuecal__event-title vuecal__event-title--edit", contenteditable: "", onBlur: (p) => s.onEventTitleBlur(p, u), innerHTML: u.title }, null, 40, Pe)) : u.title ? (h(), c("div", { key: 1, class: "vuecal__event-title", innerHTML: u.title }, null, 8, Ue)) : v("", !0), !u.content || s.hasShortEvents || s.isShortMonthView ? v("", !0) : (h(), c("div", { key: 2, class: "vuecal__event-content", innerHTML: u.content }, null, 8, Re))])]), _: 3 }, 16)) : v("", !0), k("div", { class: b(["vuecal__bg", { vuecal__flex: !s.hasTimeColumn }]), column: "" }, [k("div", qe, [s.hasTimeColumn ? (h(), c("div", Ke, [i.showAllDayEvents && s.cellOrSplitMinWidth && (!s.isDayView || i.minSplitWidth) ? (h(), c("div", { key: 0, class: "vuecal__all-day-text", style: $({ height: s.allDayBar.height }) }, [k("span", null, f(l.texts.allDay), 1)], 4)) : v("", !0), (h(!0), c(T, null, S(s.timeCells, (u, m) => (h(), c("div", { class: "vuecal__time-cell", key: m, style: $(`height: ${i.timeCellHeight}px`) }, [w(e.$slots, "time-cell", { hours: u.hours, minutes: u.minutes }, () => [Xe, k("span", Ge, f(u.label), 1)])], 4))), 128))])) : v("", !0), i.showWeekNumbers && s.isMonthView ? (h(), c("div", Ze, [(h(), c(T, null, S(6, (u) => k("div", { class: "vuecal__flex vuecal__week-number-cell", key: u, grow: "" }, [w(e.$slots, "week-number-cell", { week: s.getWeekNumber(u - 1) }, () => [M(f(s.getWeekNumber(u - 1)), 1)])])), 64))])) : v("", !0), k("div", { class: b(["vuecal__flex vuecal__cells", `${l.view.id}-view`]), grow: "", wrap: !s.cellOrSplitMinWidth || !s.isWeekView, column: !!s.cellOrSplitMinWidth }, [s.cellOrSplitMinWidth && s.isWeekView ? (h(), W(d, { key: 0, "transition-direction": l.transitionDirection, "week-days": s.weekDays, "switch-to-narrower-view": s.switchToNarrowerView, style: $(s.cellOrSplitMinWidth ? `min-width: ${s.cellOrSplitMinWidth}px` : "") }, X({ _: 2 }, [e.$slots["weekday-heading"] ? { name: "weekday-heading", fn: g(({ heading: u, view: m }) => [w(e.$slots, "weekday-heading", { heading: u, view: m })]), key: "0" } : void 0, e.$slots["split-label"] ? { name: "split-label", fn: g(({ split: u }) => [w(e.$slots, "split-label", { split: u, view: l.view.id })]), key: "1" } : void 0]), 1032, ["transition-direction", "week-days", "switch-to-narrower-view", "style"])) : s.hasSplits && i.stickySplitLabels && i.minSplitWidth ? (h(), c("div", { key: 1, class: "vuecal__flex vuecal__split-days-headers", style: $(s.cellOrSplitMinWidth ? `min-width: ${s.cellOrSplitMinWidth}px` : "") }, [(h(!0), c(T, null, S(s.daySplits, (u, m) => (h(), c("div", { class: b(["day-split-header", u.class || !1]), key: m }, [w(e.$slots, "split-label", { split: u, view: l.view.id }, () => [M(f(u.label), 1)])], 2))), 128))], 4)) : v("", !0), i.showAllDayEvents && s.hasTimeColumn && (s.isWeekView && s.cellOrSplitMinWidth || s.isDayView && s.hasSplits && i.minSplitWidth) ? (h(), W(a, J(Q({ key: 2 }, s.allDayBar)), { event: g(({ event: u, view: m }) => [w(e.$slots, "event", { view: m, event: u }, () => [s.editEvents.title && u.titleEditable ? (h(), c("div", { key: 0, class: "vuecal__event-title vuecal__event-title--edit", contenteditable: "", onBlur: (p) => s.onEventTitleBlur(p, u), innerHTML: u.title }, null, 40, Qe)) : u.title ? (h(), c("div", { key: 1, class: "vuecal__event-title", innerHTML: u.title }, null, 8, et)) : v("", !0), !u.content || s.hasShortEvents || s.isShortMonthView ? v("", !0) : (h(), c("div", { key: 2, class: "vuecal__event-content", innerHTML: u.content }, null, 8, tt))])]), _: 3 }, 16)) : v("", !0), k("div", { class: "vuecal__flex", ref: (u) => l.cellsEl = u, grow: "", wrap: !s.cellOrSplitMinWidth || !s.isWeekView, style: $(s.cellOrSplitMinWidth ? `min-width: ${s.cellOrSplitMinWidth}px` : "") }, [(h(!0), c(T, null, S(s.viewCells, (u, m) => (h(), W(r, { key: m, options: e.$props, "edit-events": s.editEvents, data: u, "cell-width": i.hideWeekdays.length && (s.isWeekView || s.isMonthView) && s.cellWidth, "min-timestamp": s.minTimestamp, "max-timestamp": s.maxTimestamp, "cell-splits": s.hasSplits && s.daySplits || [] }, { "cell-content": g(({ events: p, split: E, selectCell: _ }) => [w(e.$slots, "cell-content", { cell: u, view: l.view, goNarrower: _, events: p }, () => [E && !i.stickySplitLabels ? (h(), c("div", { key: 0, class: "split-label", innerHTML: E.label }, null, 8, st)) : v("", !0), u.content ? (h(), c("div", { key: 1, class: "vuecal__cell-date", innerHTML: u.content }, null, 8, nt)) : v("", !0), (s.isMonthView && !i.eventsOnMonthView || s.isYearsOrYearView && i.eventsCountOnYearView) && p.length ? (h(), c("div", at, [w(e.$slots, "events-count", { view: l.view, events: p }, () => [M(f(p.length), 1)])])) : v("", !0), !s.cellOrSplitHasEvents(p, E) && s.isWeekOrDayView ? (h(), c("div", lt, [w(e.$slots, "no-event", {}, () => [M(f(l.texts.noEvent), 1)])])) : v("", !0)])]), event: g(({ event: p, view: E }) => [w(e.$slots, "event", { view: E, event: p }, () => [s.editEvents.title && p.titleEditable ? (h(), c("div", { key: 0, class: "vuecal__event-title vuecal__event-title--edit", contenteditable: "", onBlur: (_) => s.onEventTitleBlur(_, p), innerHTML: p.title }, null, 40, ot)) : p.title ? (h(), c("div", { key: 1, class: "vuecal__event-title", innerHTML: p.title }, null, 8, rt)) : v("", !0), !i.time || p.allDay || s.isMonthView && (p.allDay || i.showAllDayEvents === "short") || s.isShortMonthView ? v("", !0) : (h(), c("div", dt, [M(f(l.utils.date.formatTime(p.start, s.TimeFormat)), 1), p.endTimeMinutes ? (h(), c("span", ut, "\xA0- " + f(l.utils.date.formatTime(p.end, s.TimeFormat, null, !0)), 1)) : v("", !0), p.daysCount > 1 && (p.segments[u.formattedDate] || {}).isFirstDay ? (h(), c("small", ht, "\xA0+" + f(p.daysCount - 1) + f((l.texts.day[0] || "").toLowerCase()), 1)) : v("", !0)])), !p.content || s.isMonthView && p.allDay && i.showAllDayEvents === "short" || s.isShortMonthView ? v("", !0) : (h(), c("div", { key: 3, class: "vuecal__event-content", innerHTML: p.content }, null, 8, ct))])]), "no-event": g(() => [w(e.$slots, "no-event", {}, () => [M(f(l.texts.noEvent), 1)])]), _: 2 }, 1032, ["options", "edit-events", "data", "cell-width", "min-timestamp", "max-timestamp", "cell-splits"]))), 128))], 12, it)], 10, Je)])], 2)]))]), _: 3 }, 8, ["name", "appear"]), l.ready ? v("", !0) : (h(), c("div", vt, mt))]))], 10, Fe);
 }]]);
 export {
-  yt as default
+  Dt as default
 };

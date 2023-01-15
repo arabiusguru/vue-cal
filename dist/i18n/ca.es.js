@@ -1,6 +1,6 @@
 /**
   * vue-cal v4.8.1
-  * (c) 2022 Antoni Andre <antoniandre.web@gmail.com>
+  * (c) 2023 Antoni Andre <antoniandre.web@gmail.com>
   * @license MIT
   */
 const e = ["Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte", "Diumenge"], a = ["Dl", "Dt", "Dc", "Dj", "Dv", "Ds", "Dg"], s = ["Gener", "Febrer", "Mar\xE7", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"], t = "Anys", m = "Any", l = "Mes", n = "Setmana", v = "Dia", r = "Avui", D = "No hi ha esdeveniments", o = "Tot el dia", i = "Eliminar", y = "Crear un esdeveniment", d = "dddd D MMMM YYYY", u = { weekDays: e, weekDaysShort: a, months: s, years: t, year: "Any", month: "Mes", week: n, day: "Dia", today: r, noEvent: D, allDay: o, deleteEvent: i, createEvent: y, dateFormat: d };
