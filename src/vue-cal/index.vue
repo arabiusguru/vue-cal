@@ -646,8 +646,10 @@ export default {
       if (!events.length) this.view.events = []
       // @todo: remove the code that explicitly updates this.mutableEvents (e.g on event resize).
       // as we are already mutating the event from mutableEvents.
-      events = events.length ? events : [...this.mutableEvents]
+      console.log('filteredEvents mutating before', events)
 
+      events = events.length ? events : [...this.mutableEvents]
+      console.log('filteredEvents mutating', events)
       // In no event or if on years/year view and eventsCountOnYearView is false
       // then don't add events to view.
       if (!events || (this.isYearsOrYearView && !this.eventsCountOnYearView)) return
@@ -655,7 +657,7 @@ export default {
       // First remove the events that are not in view.
       // Keep the unfiltered array of events for outOfScopeEvents below.
       let filteredEvents = events.filter(e => ue.eventInRange(e, startDate, endDate))
-
+      console.log('filteredEvents 1', filteredEvents)
       // For each multiple-day event and only if needed, create its segments (= days) for rendering in the view.
       // If we don't display the event on month view (eventsOnMonthView = false) then don't create segments.
       if (!this.isYearsOrYearView && !(this.isMonthView && !this.eventsOnMonthView)) {
@@ -663,6 +665,7 @@ export default {
           return e.daysCount > 1 ? ue.createEventSegments(e, firstCellDate || startDate, lastCellDate || endDate) : e
         })
       }
+      console.log('filteredEvents 2', filteredEvents)
 
       this.view.events.push(...filteredEvents)
 
