@@ -648,10 +648,10 @@ A valid view must be one of: ${ie.join(", ")}.`), e = "week"), this.enabledViews
   n && this.switchView(s, n);
 }, addEventsToView(e = []) {
   const t = this.utils.event, { startDate: i, endDate: n, firstCellDate: l, lastCellDate: s } = this.view;
-  if (e.length || (this.view.events = []), !(e = e.length ? e : [...this.mutableEvents]) || this.isYearsOrYearView && !this.eventsCountOnYearView)
+  if (e.length || (this.view.events = []), console.log("filteredEvents mutating before", e), e = e.length ? e : [...this.mutableEvents], console.log("filteredEvents mutating", e), !e || this.isYearsOrYearView && !this.eventsCountOnYearView)
     return;
   let o = e.filter((a) => t.eventInRange(a, i, n));
-  this.isYearsOrYearView || this.isMonthView && !this.eventsOnMonthView || (o = o.map((a) => a.daysCount > 1 ? t.createEventSegments(a, l || i, s || n) : a)), this.view.events.push(...o), this.isMonthView && (this.view.outOfScopeEvents = [], e.forEach((a) => {
+  console.log("filteredEvents 1", o), this.isYearsOrYearView || this.isMonthView && !this.eventsOnMonthView || (o = o.map((a) => a.daysCount > 1 ? t.createEventSegments(a, l || i, s || n) : a)), console.log("filteredEvents 2", o), this.view.events.push(...o), this.isMonthView && (this.view.outOfScopeEvents = [], e.forEach((a) => {
     (t.eventInRange(a, l, i) || t.eventInRange(a, n, s)) && (this.view.events.some((d) => d._eid === a._eid) || this.view.outOfScopeEvents.push(a));
   }));
 }, findAncestor(e, t) {
