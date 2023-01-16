@@ -333,12 +333,12 @@ const ve = { class: "vuecal__flex vuecal__weekdays-headings" }, me = ["onClick"]
   const { startDate: e, endDate: t } = this.data;
   let i = [];
   if (!["years", "year"].includes(this.view.id) || this.options.eventsCountOnYearView) {
-    if (i = this.view.events.slice(0), console.log("vue cal start", i), this.view.id === "month" && i.push(...this.view.outOfScopeEvents), console.log("vue cal after month checks", i), i = i.filter((n) => this.utils.event.eventInRange(n, e, t)), console.log("vue cal after Only keep events in cell time range", i), this.options.showAllDayEvents && this.view.id !== "month" && (i = i.filter((n) => !!n.allDay === this.allDay)), console.log("vue cal after all days filter", i), this.options.time && this.isWeekOrDayView && !this.allDay) {
+    if (i = this.view.events.slice(0), this.allDay && console.log("vue cal start", { allDay: this.allDay }, i), this.view.id === "month" && i.push(...this.view.outOfScopeEvents), this.allDay && console.log("vue cal after month checks", { allDay: this.allDay }, i), i = i.filter((n) => this.utils.event.eventInRange(n, e, t)), this.allDay && console.log("vue cal after Only keep events in cell time range", { allDay: this.allDay }, i), this.options.showAllDayEvents && this.view.id !== "month" && (i = i.filter((n) => !!n.allDay === this.allDay)), this.allDay && console.log("vue cal after all days filter", { allDay: this.allDay }, i), this.options.time && this.isWeekOrDayView && !this.allDay) {
       const { timeFrom: n, timeTo: l } = this.options;
       i = i.filter((s) => {
         const o = s.daysCount > 1 && s.segments[this.data.formattedDate] || {}, a = s.daysCount === 1 && s.startTimeMinutes < l && s.endTimeMinutes > n, d = s.daysCount > 1 && o.startTimeMinutes < l && o.endTimeMinutes > n;
         return s.allDay || a || d || !1;
-      }), console.log("vue cal after From events in view", i);
+      }), this.allDay && console.log("vue cal after From events in view", { allDay: this.allDay }, i);
     }
     !this.options.time || !this.isWeekOrDayView || this.options.showAllDayEvents && this.allDay || i.sort((n, l) => n.start < l.start ? -1 : 1), this.cellSplits.length || this.$nextTick(this.checkCellOverlappingEvents);
   }
