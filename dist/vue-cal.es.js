@@ -333,12 +333,12 @@ const ve = { class: "vuecal__flex vuecal__weekdays-headings" }, me = ["onClick"]
   const { startDate: e, endDate: t } = this.data;
   let i = [];
   if (!["years", "year"].includes(this.view.id) || this.options.eventsCountOnYearView) {
-    if (i = this.view.events.slice(0), this.allDay && console.log("vue cal start", { allDay: this.allDay }, i), this.view.id === "month" && i.push(...this.view.outOfScopeEvents), this.allDay && console.log("vue cal after month checks", { allDay: this.allDay }, i), i = i.filter((n) => this.utils.event.eventInRange(n, e, t)), this.allDay && console.log("vue cal after Only keep events in cell time range", { allDay: this.allDay }, i), this.options.showAllDayEvents && this.view.id !== "month" && (i = i.filter((n) => !!n.allDay === this.allDay)), this.allDay && console.log("vue cal after all days filter", { allDay: this.allDay }, i), this.options.time && this.isWeekOrDayView && !this.allDay) {
+    if (i = this.view.events.slice(0), this.view.id === "month" && i.push(...this.view.outOfScopeEvents), i = i.filter((n) => this.utils.event.eventInRange(n, e, t)), this.options.showAllDayEvents && this.view.id !== "month" && (i = i.filter((n) => !!n.allDay === this.allDay)), this.options.time && this.isWeekOrDayView && !this.allDay) {
       const { timeFrom: n, timeTo: l } = this.options;
       i = i.filter((s) => {
         const o = s.daysCount > 1 && s.segments[this.data.formattedDate] || {}, a = s.daysCount === 1 && s.startTimeMinutes < l && s.endTimeMinutes > n, d = s.daysCount > 1 && o.startTimeMinutes < l && o.endTimeMinutes > n;
         return s.allDay || a || d || !1;
-      }), this.allDay && console.log("vue cal after From events in view", { allDay: this.allDay }, i);
+      });
     }
     !this.options.time || !this.isWeekOrDayView || this.options.showAllDayEvents && this.allDay || i.sort((n, l) => n.start < l.start ? -1 : 1), this.cellSplits.length || this.$nextTick(this.checkCellOverlappingEvents);
   }
@@ -648,10 +648,10 @@ A valid view must be one of: ${ie.join(", ")}.`), e = "week"), this.enabledViews
   n && this.switchView(s, n);
 }, addEventsToView(e = []) {
   const t = this.utils.event, { startDate: i, endDate: n, firstCellDate: l, lastCellDate: s } = this.view;
-  if (e.length || (this.view.events = []), console.log("filteredEvents mutating before", e), e = e.length ? e : [...this.mutableEvents], console.log("filteredEvents mutating", e), !e || this.isYearsOrYearView && !this.eventsCountOnYearView)
+  if (e.length || (this.view.events = []), !(e = e.length ? e : [...this.mutableEvents]) || this.isYearsOrYearView && !this.eventsCountOnYearView)
     return;
   let o = e.filter((a) => t.eventInRange(a, i, n));
-  console.log("filteredEvents 1", { filteredEvents: o, events: e, startDate: i, endDate: n }), this.isYearsOrYearView || this.isMonthView && !this.eventsOnMonthView || (o = o.map((a) => a.daysCount > 1 ? t.createEventSegments(a, l || i, s || n) : a)), console.log("filteredEvents 2", o), this.view.events.push(...o), this.isMonthView && (this.view.outOfScopeEvents = [], e.forEach((a) => {
+  this.isYearsOrYearView || this.isMonthView && !this.eventsOnMonthView || (o = o.map((a) => a.daysCount > 1 ? t.createEventSegments(a, l || i, s || n) : a)), this.view.events.push(...o), this.isMonthView && (this.view.outOfScopeEvents = [], e.forEach((a) => {
     (t.eventInRange(a, l, i) || t.eventInRange(a, n, s)) && (this.view.events.some((d) => d._eid === a._eid) || this.view.outOfScopeEvents.push(a));
   }));
 }, findAncestor(e, t) {
