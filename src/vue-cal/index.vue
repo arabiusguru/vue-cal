@@ -657,7 +657,7 @@ export default {
       // First remove the events that are not in view.
       // Keep the unfiltered array of events for outOfScopeEvents below.
       let filteredEvents = events.filter(e => ue.eventInRange(e, startDate, endDate))
-      console.log('filteredEvents 1', filteredEvents)
+      console.log('filteredEvents 1', {filteredEvents,events,startDate,endDate})
       // For each multiple-day event and only if needed, create its segments (= days) for rendering in the view.
       // If we don't display the event on month view (eventsOnMonthView = false) then don't create segments.
       if (!this.isYearsOrYearView && !(this.isMonthView && !this.eventsOnMonthView)) {
